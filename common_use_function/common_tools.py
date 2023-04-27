@@ -136,5 +136,6 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         res_l = []
         for k, v in iterator:
             this_key = k if key is None else '{}[{}]'.format(key, k)
+            v = v.encode('utf-8')
             res_l.append(self.JSON_to_URL_encode(v, this_key))
         return '&'.join(res_l)
