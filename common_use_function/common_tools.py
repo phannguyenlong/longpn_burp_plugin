@@ -4,6 +4,8 @@ from burp import IContextMenuFactory, IContextMenuInvocation
 from java.awt import Toolkit
 from java.awt.datatransfer import StringSelection
 from javax.swing import JMenuItem
+from java.awt.event import KeyEvent
+from javax.swing import KeyStroke
 from java.io import PrintWriter
 import java.util.ArrayList as ArrayList
 # other url
@@ -31,13 +33,16 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
                 or context == IContextMenuInvocation.CONTEXT_MESSAGE_VIEWER_REQUEST:
 
             # Convert to URL Encoded option
-            menuItem1 = JMenuItem('Convert body to url-encoded', actionPerformed=self.convertBodyToURLEncode)
+            menuItem1 = JMenuItem('Convert body to url-encoded',KeyEvent.VK_U ,actionPerformed=self.convertBodyToURLEncode)
+            menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK))
 
             # Copy cookie options
-            menuItem2 = JMenuItem('Copy "Cookie" header', actionPerformed=self.copyCookieHeader)
+            menuItem2 = JMenuItem('Copy "Cookie" header',KeyEvent.VK_C, actionPerformed=self.copyCookieHeader)
+            menuItem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_MASK))
 
             # Copy Authorization header options
-            menuItem3 = JMenuItem('Copy "Authorization" header', actionPerformed=self.copyAuthorizationHeader)
+            menuItem3 = JMenuItem('Copy "Authorization" header',KeyEvent.VK_A, actionPerformed=self.copyAuthorizationHeader)
+            menuItem3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_MASK))
 
             # return menu items
             return [menuItem1, menuItem2, menuItem3]
